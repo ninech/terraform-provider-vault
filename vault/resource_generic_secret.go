@@ -216,6 +216,8 @@ func genericSecretResourceRead(d *schema.ResourceData, meta interface{}) error {
 		d.Set("path", path)
 	} else {
 		log.Printf("[WARN] vault_generic_secret does not refresh when disable_read is set to true")
+		// Because we do not read, we also cannot compute the attribute data
+		d.Set("data", nil)
 	}
 	d.Set("disable_read", !shouldRead)
 	return nil
